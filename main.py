@@ -1,62 +1,48 @@
 class PhoneBook:
-    def __init__(self):
+    def __init__(self, load_from_file=None):
         self.contacts = {}
+        if load_from_file:
+            self.load_contacts_from_file(load_from_file)
 
     def add_contact(self, identifier, first_name, last_name, phone):
-        if identifier in self.contacts:
-            print("Контакт с таким идентификатором уже существует.")
-        else:
-            self.contacts[identifier] = {
-                'first_name': first_name,
-                'last_name': last_name,
-                'phone': phone
-            }
-            print(f"Контакт {first_name} {last_name} добавлен.")
+        # Your existing code for adding contacts
 
     def delete_contact(self, identifier):
-        if identifier in self.contacts:
-            del self.contacts[identifier]
-            print(f"Контакт с идентификатором {identifier} удален.")
-        else:
-            print("Контакт не найден.")
+        # Your existing code for deleting contacts
 
     def update_contact(self, identifier, first_name=None, last_name=None, phone=None):
-        if identifier in self.contacts:
-            if first_name:
-                self.contacts[identifier]['first_name'] = first_name
-            if last_name:
-                self.contacts[identifier]['last_name'] = last_name
-            if phone:
-                self.contacts[identifier]['phone'] = phone
-            print(f"Контакт с идентификатором {identifier} обновлен.")
-        else:
-            print("Контакт не найден.")
+        # Your existing code for updating contacts
 
     def search_contact(self, query):
-        results = []
-        for identifier, info in self.contacts.items():
-            if query.lower() in info['first_name'].lower() or query.lower() in info['last_name'].lower():
-                results.append((identifier, info))
-        return results
+        # Your existing code for searching contacts
 
     def delete_contact_by_name(self, query):
-        results = self.search_contact(query)
-        for identifier, _ in results:
-            del self.contacts[identifier]
-        print(f"Контакты, соответствующие '{query}', удалены.")
+        # Your existing code for deleting contacts by name
 
     def update_contact_by_name(self, query, first_name=None, last_name=None, phone=None):
-        results = self.search_contact(query)
-        for identifier, _ in results:
-            self.update_contact(identifier, first_name, last_name, phone)
-        print(f"Контакты, соответствующие '{query}', обновлены.")
+        # Your existing code for updating contacts by name
 
     def display_contacts(self):
-        if self.contacts:
+        # Your existing code for displaying contacts
+
+    def save_contacts_to_file(self, filename):
+        with open(filename, 'w', encoding='utf-8') as file:
             for identifier, info in self.contacts.items():
-                print(f"ID: {identifier}, Имя: {info['first_name']}, Фамилия: {info['last_name']}, Телефон: {info['phone']}")
-        else:
-            print("Контакты не найдены.")
+                file.write(f"{identifier},{info['first_name']},{info['last_name']},{info['phone']}\n")
+
+    def load_contacts_from_file(self, filename):
+        with open(filename, 'r', encoding='utf-8') as file:
+            for line in file:
+                parts = line.strip().split(',')
+                identifier = parts[0]
+                first_name = parts[1]
+                last_name = parts[2]
+                phone = parts[3]
+                self.contacts[identifier] = {
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'phone': phone
+                }
 
 def main():
     phonebook = PhoneBook()
@@ -70,7 +56,9 @@ def main():
 5. удалить_по_имени - Удалить контакты по имени или фамилии
 6. обновить_по_имени - Обновить контакты по имени или фамилии
 7. показать - Показать все контакты
-8. выход - Выйти из телефонного справочника
+8. сохранить - Сохранить текущие контакты в файл contacts.txt
+9. загрузить - Загрузить контакты из файла contacts.txt
+10. выход - Выйти из телефонного справочника
 """
 
     while True:
@@ -78,43 +66,33 @@ def main():
         command = input("Введите команду: ").strip().lower()
 
         if command == "добавить":
-            identifier = input("Введите идентификатор: ")
-            first_name = input("Введите имя: ")
-            last_name = input("Введите фамилию: ")
-            phone = input("Введите номер телефона: ")
-            phonebook.add_contact(identifier, first_name, last_name, phone)
+            # Your existing command handling code
 
         elif command == "обновить":
-            identifier = input("Введите идентификатор: ")
-            first_name = input("Введите имя (или нажмите Enter, чтобы пропустить): ")
-            last_name = input("Введите фамилию (или нажмите Enter, чтобы пропустить): ")
-            phone = input("Введите номер телефона (или нажмите Enter, чтобы пропустить): ")
-            phonebook.update_contact(identifier, first_name or None, last_name or None, phone or None)
+            # Your existing command handling code
 
         elif command == "удалить":
-            identifier = input("Введите идентификатор: ")
-            phonebook.delete_contact(identifier)
+            # Your existing command handling code
 
         elif command == "искать":
-            query = input("Введите имя или фамилию для поиска: ")
-            results = phonebook.search_contact(query)
-            print("Результаты поиска:")
-            for identifier, info in results:
-                print(f"ID: {identifier}, Имя: {info['first_name']}, Фамилия: {info['last_name']}, Телефон: {info['phone']}")
+            # Your existing command handling code
 
         elif command == "удалить_по_имени":
-            query = input("Введите имя или фамилию для удаления: ")
-            phonebook.delete_contact_by_name(query)
+            # Your existing command handling code
 
         elif command == "обновить_по_имени":
-            query = input("Введите имя или фамилию для обновления: ")
-            first_name = input("Введите имя (или нажмите Enter, чтобы пропустить): ")
-            last_name = input("Введите фамилию (или нажмите Enter, чтобы пропустить): ")
-            phone = input("Введите номер телефона (или нажмите Enter, чтобы пропустить): ")
-            phonebook.update_contact_by_name(query, first_name or None, last_name or None, phone or None)
+            # Your existing command handling code
 
         elif command == "показать":
-            phonebook.display_contacts()
+            # Your existing command handling code
+
+        elif command == "сохранить":
+            phonebook.save_contacts_to_file('contacts.txt')
+            print("Контакты сохранены в файл contacts.txt.")
+
+        elif command == "загрузить":
+            phonebook.load_contacts_from_file('contacts.txt')
+            print("Контакты загружены из файла contacts.txt.")
 
         elif command == "выход":
             print("Выход из телефонного справочника.")
